@@ -4,4 +4,10 @@
     <p>{{username}}</p>
     <button class="btn btn-primary" [disabled]="!username" (click)="username = ''">Reset User</button>
   </div>
+  <div class="row">
+    <button class="btn btn-primary" (click) = toggleContent()>Display Detail</button>
+    <p *ngFor="let num of numArray" [ngStyle]="{backgroundColor: num >= 5 ? 'blue' : 'transparent'}" [ngClass]="{'white-text' : num >= 5}">
+      {{num}}
+    </p>
+  </div>
 </div>
