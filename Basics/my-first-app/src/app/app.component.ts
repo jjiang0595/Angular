@@ -8,6 +8,7 @@ export class AppComponent {
   username = '';
   numArray = [];
   showContent = false;
+  title: "my-first-app";
 
   constructor() {
   }
