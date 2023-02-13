@@ -52,10 +52,22 @@
           </textarea>
           <p>Your reply: {{ answer }}</p>
         </div>
+        <div class="radio" *ngFor="let gender of genders">
+          <label type="radio">
+            <input
+              type="radio"
+              name="gender"
+              [ngModel]="'male'"
+              [value]="gender"
+              required>
+            {{ gender }}
+          </label>
+        </div>
         <button
           class="btn btn-primary"
           type="submit"
-          [disabled]="!f.valid">Submit</button>
+          [disabled]="!f.valid">Submit
+        </button>
       </form>
     </div>
   </div>
