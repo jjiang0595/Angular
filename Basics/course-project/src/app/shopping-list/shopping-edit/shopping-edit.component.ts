@@ -41,7 +41,7 @@ export class ShoppingEditComponent implements OnInit {
     form.reset();
   }
 
-  onClear(form: NgForm) {
+  onClear() {
     this.editMode = false;
     this.slForm.reset();
   }
