@@ -46,6 +46,11 @@ export class ShoppingEditComponent implements OnInit {
     this.slForm.reset();
   }
 
+  onDelete() {
+    this.slService.deleteIngredient(this.editedItemIndex);
+    this.onClear();
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
