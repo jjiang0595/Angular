@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import {Post} from "./post.model";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
     this.fetchPosts();
   }
 
-  onCreatePost(postData: { title: string; content: string }) {
+  onCreatePost(postData: Post) {
     // Send Http request
     console.log(postData);
     this.http.post('https://ng-complete-guide-da444-default-rtdb.firebaseio.com/posts.json',
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts() {
-    this.http.get('https://ng-complete-guide-da444-default-rtdb.firebaseio.com/posts.json')
+    this.http.get<{[key: string]: Post}>('https://ng-complete-guide-da444-default-rtdb.firebaseio.com/posts.json')
       .pipe(map(responseData => {
         const postsArray = [];
         for (const key in responseData) {
