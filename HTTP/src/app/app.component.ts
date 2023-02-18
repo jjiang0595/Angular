@@ -9,7 +9,7 @@ import {Post} from "./post.model";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loadedPosts = [];
+  loadedPosts: Post[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -38,15 +38,16 @@ export class AppComponent implements OnInit {
   private fetchPosts() {
     this.http.get<{[key: string]: Post}>('https://ng-complete-guide-da444-default-rtdb.firebaseio.com/posts.json')
       .pipe(map(responseData => {
-        const postsArray = [];
+        const postsArray: Post[] = [];
         for (const key in responseData) {
           if(responseData.hasOwnProperty(key)) {
             postsArray.push({...responseData[key], id: key})
           }
         }
+        return postsArray;
       }))
       .subscribe(posts => {
-      console.log(posts);
+        this.loadedPosts = posts;
     });
   }
 }
