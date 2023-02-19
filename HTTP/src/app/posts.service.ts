@@ -34,7 +34,7 @@ export class PostsService {
         {
           headers: new HttpHeaders({'Custom-Header': 'Hello'}),
           params: searchParams,
-          responseType: 'text'
+          responseType: 'json'
         })
       .pipe(map(responseData => {
           const postsArray: Post[] = [];
