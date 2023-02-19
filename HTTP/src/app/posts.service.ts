@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Post} from "./post.model";
-import {map} from "rxjs/operators";
-import {Observable, Subject} from "rxjs";
+import {catchError, map} from "rxjs/operators";
+import {Observable, Subject, throwError} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class PostsService {
@@ -27,14 +27,18 @@ export class PostsService {
     return this.http
       .get<{ [key: string]: Post }>('https://ng-complete-guide-da444-default-rtdb.firebaseio.com/posts.json')
       .pipe(map(responseData => {
-        const postsArray: Post[] = [];
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            postsArray.push({...responseData[key], id: key})
+          const postsArray: Post[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push({...responseData[key], id: key})
+            }
           }
-        }
-        return postsArray
-      }));
+          return postsArray
+        }),
+        catchError(errorRes => {
+          return throwError(errorRes);
+        })
+      );
   }
 
   deletePosts() {
